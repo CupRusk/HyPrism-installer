@@ -33,7 +33,7 @@ chmod +x install.sh
 ### 2. Run the installer
 
 ```bash
-./install.sh [installation_directory]
+./install.sh
 ```
 
 * `[installation_directory]` is optional
