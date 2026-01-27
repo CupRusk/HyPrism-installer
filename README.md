@@ -4,7 +4,7 @@ This document explains how to install, update, and run **HyPrism** on Linux usin
 
 ## Features
 
-* Downloads the **latest `x86_64` AppImage** from the official HyPrism GitHub releases.
+* Downloads the **latest `X64` AppImage** from the official HyPrism GitHub releases.
 * Supports **updates**: detects existing installation and replaces the AppImage safely.
 * **Optional backup** of an existing HyPrism / Hytale game version before updating (ZIP archive).
 * Automatically handles **permission issues** using `pkexec` if required.
