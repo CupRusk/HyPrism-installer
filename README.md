@@ -36,7 +36,6 @@ chmod +x install.sh
 ./install.sh
 ```
 
-* `[installation_directory]` is optional
 * Default: `~/Applications/HyPrism`
 
 ### 3. What the installer does
