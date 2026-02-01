@@ -4,33 +4,44 @@ from pathlib import Path
 from logic.backup import backup_zip
 from logic.ins_hyprism import install_hyprism
 from logic.ins_shortcut import ins_shortcut
+from logic.dp import dp
+from parser import parser_argv
 # ----
 
 def main():
-    if len(sys.argv) > 1:
-        install_dir = Path(sys.argv[1]).expanduser().resolve()
-    else:
-        install_dir = Path.home() / "Applications" / "HyPrism"
+    config = parser_argv(sys.argv[1:])
+
+    install_dir = (
+        config["install_dir"]
+        if config["install_dir"]
+        else Path.home() / "Applications" / "HyPrism"
+    )
+
+    if dp(config):
+        return
 
     app_file = install_dir / "HyPrism.AppImage"
     is_update = app_file.exists()
 
     if is_update:
         print(f"Update detected in {install_dir}")
-        backup_zip(install_dir)
+        if config["no_backup"]:
+            print("Skipping backup (--no-backup)")
+        else:
+            backup_zip(install_dir)
 
     try:
         app_path = install_hyprism(install_dir)
-
-        if not is_update:
-            ans = input("Do you want to create a desktop shortcut? [y/N]: ").lower()
-            if ans in ('y', 'yes'):
+        # if no_shortcut == True: skip
+        if not is_update and not config["no_shortcut"]:
+            ans = input("Do you want to create a desktop shortcut? [y/N]: ").strip().lower()
+            if ans in ("y", "yes"):
                 ins_shortcut(app_path, install_dir)
             else:
                 print("Ok, skipping shortcuts.")
         else:
-            # Always update shortcuts on update
-            ins_shortcut(app_path, install_dir)
+            print("Skipping shortcuts.")
+
 
         print("Done!")
 

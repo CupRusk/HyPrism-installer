@@ -5,6 +5,13 @@ OWNER = "yyyumeniku"
 REPO = "HyPrism"
 HEADERS = {"User-Agent": "HyPrism-installer"}
 
+"""
+1.Используеться GITHUB-API для динамической установки программы.
+2.инсталлер зафиксирован на .appimage and 'x64' in name. Во избежание добавления дополнительных условий
+3.используеться обработка ошибок - поэтому шанс что программа упадёт намного ниже чем раньше. Возможно стоит её обробатывать KeyboardInterpput
+4.скачиваеться всё по чанкам, что-бы не перегружать компьютер пользователя.
+"""
+
 def install_hyprism(install_dir: Path) -> Path:
     install_dir.mkdir(parents=True, exist_ok=True)
 
