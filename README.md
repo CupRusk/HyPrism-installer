@@ -91,7 +91,7 @@ chmod +x install.sh
 
 * **`AppImage not found in latest release`**
 
-  * The GitHub release may not contain an `x86_64` AppImage
+  * The GitHub release may not contain an `x64` AppImage
 * **Permission denied during backup**
 
   * Accept the `pkexec` prompt or choose a directory you own
@@ -102,4 +102,6 @@ chmod +x install.sh
     ```bash
     chmod +x ~/.local/share/applications/HyPrism.desktop
     ```
+
+    or reboot your DE
 
