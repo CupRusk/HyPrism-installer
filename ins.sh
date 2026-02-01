@@ -20,5 +20,13 @@ if ! command -v fusermount3 >/dev/null 2>&1; then
     exit 1
 fi
 
+if [ ! -d ".venv" ]; then
+    python3 -m venv .venv
+fi
+source ./.venv/bin/activate
+python3 -m pip install --upgrade pip
+python3 -m pip install requests
+
+
 echo "Environment check passed."
 echo "You can now run: python3 main.py <arguments>"
