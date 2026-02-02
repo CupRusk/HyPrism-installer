@@ -42,9 +42,6 @@ def main():
         else:
             print("Skipping shortcuts.")
 
-
-        print("Done!")
-
     except Exception as e:
         print(f"Error occurred: {e}")
         sys.exit(1)

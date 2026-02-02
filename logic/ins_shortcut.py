@@ -4,8 +4,8 @@ import requests
 HEADERS = {"User-Agent": "HyPrism-installer"}
 
 def install_icon(install_dir: Path):
-    ICON_URL = "https://raw.githubusercontent.com/CupRusk/HyPrism-installer/main/HyPrism_icon.png"
-
+    ICON_URL = "https://raw.githubusercontent.com/yyyumeniku/HyPrism/main/assets/Hyprism.png"
+    
     resp = requests.get(ICON_URL, headers=HEADERS, timeout=10)
     resp.raise_for_status()
 

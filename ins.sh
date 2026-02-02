@@ -1,32 +1,41 @@
 #!/usr/bin/env bash
 set -e
 
-if command -v python3 >/dev/null 2>&1; then
-    echo "Python 3 found"
-else
-    echo "Python 3 not found. Please install Python 3."
-    exit 1
-fi
+# ------------------------------
+# Check Python3
+# ------------------------------
+command -v python3 >/dev/null 2>&1 || { echo "Python3 not found"; exit 1; }
+echo "Python3 found"
 
-if python3 -m pip --version >/dev/null 2>&1; then
-    echo "pip found"
-else
-    echo "pip not found. Please install pip."
-    exit 1
-fi
+# ------------------------------
+# Check requests
+# ------------------------------
+python3 -c "import requests" 2>/dev/null || {
+    echo "python-requests not found. Trying to install system package..."
 
-if ! command -v fusermount3 >/dev/null 2>&1; then
-    echo "FUSE3 not found. Please install it."
-    exit 1
-fi
+    if command -v pacman >/dev/null 2>&1; then
+        sudo pacman -S --needed python-requests
+    elif command -v apt >/dev/null 2>&1; then
+        sudo apt update
+        sudo apt install -y python3-requests
+    elif command -v dnf >/dev/null 2>&1; then
+        sudo dnf install -y python3-requests
+    elif command -v zypper >/dev/null 2>&1; then
+        sudo zypper install -y python3-requests
+    else
+        echo "Unsupported package manager. Please install requests manually."
+        exit 1
+    fi
+}
 
-if [ ! -d ".venv" ]; then
-    python3 -m venv .venv
-fi
-source ./.venv/bin/activate
-python3 -m pip install --upgrade pip
-python3 -m pip install requests
+# ------------------------------
+# Check FUSE3
+# ------------------------------
+command -v fusermount3 >/dev/null 2>&1 || { echo "FUSE3 not found. Please install fuse3."; exit 1; }
 
+# ------------------------------
+# Start Python-file
+# ------------------------------
+# curl to raw_binary.
 
-echo "Environment check passed."
-echo "You can now run: python3 main.py <arguments>"
+echo "Done! HyPrism should now run."
