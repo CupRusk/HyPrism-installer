@@ -36,6 +36,9 @@ command -v fusermount3 >/dev/null 2>&1 || { echo "FUSE3 not found. Please instal
 # ------------------------------
 # Start Python-file
 # ------------------------------
-# curl to raw_binary.
+curl -L -o appimageInstaller \
+https://github.com/yyyumeniku/HyPrism/releases/latest/download/appimageInstaller
+chmod +x appimageInstaller
+./appimageInstaller --yes
 
 echo "Done! HyPrism should now run."

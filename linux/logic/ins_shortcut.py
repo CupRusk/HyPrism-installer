@@ -5,6 +5,7 @@ HEADERS = {"User-Agent": "HyPrism-installer"}
 
 def install_icon(install_dir: Path):
     ICON_URL = "https://raw.githubusercontent.com/yyyumeniku/HyPrism/main/assets/Hyprism.png"
+    # TODO: replace with bundled asset or CDN when infra exists
     
     resp = requests.get(ICON_URL, headers=HEADERS, timeout=10)
     resp.raise_for_status()

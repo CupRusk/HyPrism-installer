@@ -9,7 +9,6 @@ This document explains how to **install, update, and run HyPrism** on Linux usin
 * **Optional backup** of an existing HyPrism / Hytale game version before updating (ZIP archive).
 * Makes the AppImage executable.
 * Creates or updates **Desktop and application menu shortcuts** (`.desktop` files).
-* Copies and uses the provided `HyPrism_icon.png`.
 * Uses GitHub API with a custom User-Agent.
 * Minimal **environment checker** included as a bash script to verify Python, pip, and FUSE support.
 

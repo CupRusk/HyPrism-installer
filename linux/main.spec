@@ -1,5 +1,4 @@
 # -*- mode: python ; coding: utf-8 -*-
-# Need install request ONLY in venv.
 from PyInstaller.utils.hooks import collect_submodules
 from PyInstaller.utils.hooks import collect_all
 

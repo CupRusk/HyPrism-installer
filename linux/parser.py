@@ -6,6 +6,7 @@ def parser_argv(argv):
         "no_shortcut": False,
         "coffe": False,
         "no_backup": False,
+        "all_yes": False
     }
 
     for arg in argv:
@@ -22,6 +23,8 @@ def parser_argv(argv):
                 config["coffe"] = True
             case "--no-backup":
                 config["no_backup"] = True
+            case "--yes":
+                config["all_yes"] = True
             case _:
                 raise ValueError(f"Unknown argument: {arg}")
 
