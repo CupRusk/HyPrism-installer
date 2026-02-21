@@ -23,13 +23,14 @@ def install_hyprism(install_dir: Path) -> Path:
     asset_url = None
     for asset in release.get("assets", []):
         name = asset.get("name", "")
+        # only if x64
         if name.endswith(".AppImage") and "x64" in name:
             asset_url = asset.get("browser_download_url")
             break
 
     if not asset_url:
         raise RuntimeError("AppImage not found in latest release")
-
+    # rename file
     filename = install_dir / "HyPrism.AppImage"
     temp_file = filename.with_suffix(".tmp")
 

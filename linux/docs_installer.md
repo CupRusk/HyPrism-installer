@@ -1,166 +1,154 @@
-# HyPrism Linux Installer
+# HyPrism Linux Installer Documentation
 
-This document explains how to **install, update, and run HyPrism** on Linux using the provided Python installer.
-
-## Features
-
-* Downloads the **latest `x64` AppImage** from the official HyPrism GitHub releases.
-* Supports **updates**: detects existing installation and replaces the AppImage safely.
-* **Optional backup** of an existing HyPrism / Hytale game version before updating (ZIP archive).
-* Makes the AppImage executable.
-* Creates or updates **Desktop and application menu shortcuts** (`.desktop` files).
-* Uses GitHub API with a custom User-Agent.
-* Minimal **environment checker** included as a bash script to verify Python, pip, and FUSE support.
+This documentation provides details on how to install, configure, and build the **HyPrism Installer** for Linux systems.
 
 ---
 
-## Requirements
+## 🚀 Features
 
-* Linux system
-* Python 3
-* `pip`
-* Bash (for environment check)
-* `fusermount3` (FUSE3 support)
-* Internet connection
+* 
+**Dynamic Installation**: Uses the GitHub API to fetch the latest `x64` AppImage from the official repository.
+
+
+* 
+**Update Support**: Detects existing installations and safely replaces them.
+
+
+* 
+**Optional Backups**: Offers to create a timestamped ZIP archive of your current game version before updating.
+
+
+* 
+**System Integration**: Automatically generates `.desktop` shortcuts for your desktop and application menu.
+
+
+* 
+**Resource Efficient**: Downloads files in chunks to minimize system load.
+
+
 
 ---
 
-## Usage
+## 🛠 Requirements
 
-### 1. Optional: check environment
+* 
+**Operating System**: Linux (tested on Arch Linux).
 
-The provided bash script will check your system for FUSE3.
+
+* **Dependencies**:
+* Python 3 and `pip`.
+
+
+* 
+`FUSE3` (`fusermount3`) to run AppImages.
+
+
+* 
+`requests` Python library.
+
+
+
+
+
+---
+
+## 📥 Usage
+
+### 1. Automatic Environment Check & Install
+
+Use the provided bash script to verify dependencies and run the installer automatically:
 
 ```bash
 chmod +x install_linux.sh
-./install.sh
-```
-
-**What it does:**
-
-* Verifies Python 3 and pip are installed
-* Verifies FUSE3 (`fusermount3`) is available
-* Creates a Python virtual environment `.venv`
-* Installs `requests` in the virtual environment
-
-**Output example:**
+./install_linux.sh
 
 ```
-Python 3 found
-pip found
-FUSE3 found
-Environment check passed.
-You can now run: python3 main.py <arguments>
-```
+
+**This script will:**
+
+* Verify Python 3, pip, and FUSE3 are present.
+
+
+* Download the latest installer binary.
+* Execute the installation with default settings.
+
+### 2. Manual Execution
+
+If running the Python script (`main.py`) or the compiled binary directly, you can use the following flags:
+
+| Option | Description |
+| --- | --- |
+| `--dir=PATH` | Set a custom installation directory (Default: `~/Applications/HyPrism`).
+
+ |
+| `--no-shortcut` | Skip the creation of desktop and menu shortcuts.
+
+ |
+| `--no-backup` | Skip the backup prompt during updates.
+
+ |
+| `--yes` | Automatically accept prompts (except for backup). |
+| `-c` / `-coffe` | Enable "Coffee Mode" (Easter egg).
+
+ |
 
 ---
 
-### 2. Run the Python installer
+## 📂 Backup Behavior
 
-After checking the environment, you can run the installer with:
+* The installer prompts for a backup **only** during an update.
 
+
+* It requires the path to your current `HyPrism/game_version` (not the root folder).
+
+
+* If the directory requires elevated permissions, the installer attempts to use `pkexec` for access.
+
+
+* Backups are saved as `HyPrism_backup_YYYYMMDD_HHMMSS.zip` in your installation folder.
+
+
+
+---
+
+## 🏗 Building from Source
+
+To compile the installer into a standalone binary using **PyInstaller**:
+
+1. **Set up a virtual environment**:
 ```bash
-python3 main.py [OPTIONS]
+python3 -m venv .venv
+source .venv/bin/activate
+
 ```
 
-**Default installation path:** `~/Applications/HyPrism`
+
+2. **Install requirements**:
+```bash
+pip install requests pyinstaller
+
+```
+
+
+3. **Build the project**:
+```bash
+pyinstaller main.spec
+
+```
+
+
 
 ---
 
-### 3. Available options
+## ❓ Troubleshooting
 
-| Option          | Description                              |
-| --------------- | ---------------------------------------- |
-| `--dir=PATH`    | Specify a custom installation directory  |
-| `--no-shortcut` | Skip creating desktop and menu shortcuts |
-| `--no-backup`   | Skip creating a backup during updates    |
-| `-c` / `-coffe` | Enable “coffee mode” (fun easter egg)    |
+* 
+**AppImage not launching**: Ensure `fuse3` is installed on your system.
 
----
 
-### 4. What the installer does
+* 
+**Permission Denied**: If the backup fails, ensure you have write access or accept the `pkexec` prompt.
 
-#### First install
 
-* Downloads the latest HyPrism AppImage
-* Makes it executable
-* Prompts whether to create desktop shortcuts
-* Copies `HyPrism_icon.png`
-* Creates:
-
-  * `~/Desktop/HyPrism.desktop`
-  * `~/.local/share/applications/HyPrism.desktop`
-
-#### Update (if HyPrism already exists)
-
-* Detects existing installation automatically
-
-* Prompts **whether to create a backup** (recommended)
-
-* If backup is enabled:
-
-  * Prompts for the path to your existing `HyPrism/game_version` directory
-  * Creates a timestamped ZIP backup:
-
-    ```
-    HyPrism_backup_YYYYMMDD_HHMMSS.zip
-    ```
-
-* Downloads and replaces the AppImage
-
-* **Always updates shortcuts automatically**
-
----
-
-## Backup behavior
-
-* Backup is **optional** and only performed during updates
-* If the selected directory requires elevated permissions, the installer will re-run itself using `pkexec`
-* If backup is skipped or fails, installation continues normally
-
----
-
-## Notes
-
-* Tested on **Arch Linux**, should work on most modern Linux distributions with Python 3 and bash
-
-* You can safely re-run the installer at any time to:
-
-  * Update HyPrism
-  * Recreate shortcuts
-  * Create new backups
-
-* If the icon does not appear in your menu:
-
-  * Ensure `HyPrism_icon.png` exists in the installation directory
-  * You may need to log out and log back in
-
----
-
-## Troubleshooting
-
-* **Python 3 or pip not found**
-
-  * Make sure Python 3 and pip are installed and in your PATH
-
-* **FUSE3 not found (`fusermount3`)**
-
-  * Install FUSE3 via your distribution’s package manager
-
-* **AppImage not found in latest release**
-
-  * The GitHub release may not contain an `x64` AppImage
-
-* **Permission denied during backup**
-
-  * Accept the `pkexec` prompt or choose a directory you own
-
-* **Shortcuts not showing**
-
-  * Check file permissions:
-
-    ```bash
-    chmod +x ~/.local/share/applications/HyPrism.desktop
-    ```
-
-  * Or reboot your desktop environment
+* 
+**Missing Icons**: Check if `HyPrism_icon.png` exists in the installation directory; you may need to restart your desktop environment to refresh shortcuts.

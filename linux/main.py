@@ -33,15 +33,15 @@ def main():
 
     try:
         app_path = install_hyprism(install_dir)
-
+        
         if config["no_shortcut"]:
             print("Skipping shortcuts.")
             return
-
+        # check - it`s "all_yes"?
         if config["all_yes"]:
             ins_shortcut(app_path, install_dir)
             return
-
+        # check - it`s should update?
         if is_update:
             print("Skipping shortcuts on update.")
             return
