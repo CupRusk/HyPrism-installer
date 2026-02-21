@@ -8,7 +8,7 @@ from logic.dp import dp
 from parser import parser_argv
 # ----
 
-def linux():
+def main():
     config = parser_argv(sys.argv[1:])
 
     install_dir = (
