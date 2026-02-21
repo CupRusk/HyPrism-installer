@@ -29,10 +29,10 @@ This document explains how to **install, update, and run HyPrism** on Linux usin
 
 ### 1. Optional: check environment
 
-The provided bash script will check your system for Python 3, pip, and FUSE3, and create a virtual environment with required Python packages:
+The provided bash script will check your system for FUSE3.
 
 ```bash
-chmod +x install.sh
+chmod +x install_linux.sh
 ./install.sh
 ```
 

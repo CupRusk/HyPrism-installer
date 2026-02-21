@@ -2,16 +2,13 @@ from pathlib import Path
 import sys, os
 import datetime, shutil
 
-def backup_zip(install_dir: Path, all_yes):
+def backup_zip(install_dir: Path):
     print("Backup Hytale")
     try:
-        if not all_yes:
-            y = input("Do you want a backup (just in case)? [y/N]: ").strip().lower()
-            if y not in ("y", "yes"):
-                print("Skipping backup")
-                return
-        else:
-            print("Auto mode: backup enabled.")
+        y = input("Do you want a backup (just in case)? [y/N]: ").strip().lower()
+        if y not in ("y", "yes"):
+            print("Skipping backup")
+            return
 
 
         hyprism_path = input("Path to your current HyPrism/game_version (not HyPrism folder): ").strip()
